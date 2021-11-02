@@ -23,5 +23,6 @@ public class GameManager : MonoBehaviour
     public void ProcessCounterText()
     {
         displayPlayCount.text = playCount.ToString();
+        RateManager.GetInstance().DisplayPopup();
     }
 }

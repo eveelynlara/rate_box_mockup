@@ -21,13 +21,16 @@ public class RateManager : Singleton<RateManager>
         
         if(playCount % countToRate == 0 && !rateOff)
         {
-            #if UNITY_IOS
+            if(playCount != 0)
             {
-                Device.RequestStoreReview();
+                #if UNITY_IOS
+                {
+                    Device.RequestStoreReview();
+                }
+                #else
+                    rateBoxPopup.gameObject.SetActive(true);
+                #endif
             }
-            #else
-                rateBoxPopup.gameObject.SetActive(true);
-            #endif
         }
     }
 }
