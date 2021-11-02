@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+#if UNITY_IOS
+    using UnityEngine.iOS;
+#endif
+
 public class RateManager : Singleton<RateManager>
 {
     [SerializeField] private RateBoxPopup rateBoxPopup;
@@ -17,7 +21,13 @@ public class RateManager : Singleton<RateManager>
         
         if(playCount % countToRate == 0 && !rateOff)
         {
-            rateBoxPopup.gameObject.SetActive(true);
+            #if UNITY_IOS
+            {
+                Device.RequestStoreReview();
+            }
+            #else
+                rateBoxPopup.gameObject.SetActive(true);
+            #endif
         }
     }
 }
